@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Jan Journals</title>
+  <style>
+    :root {
+      --paper: #fbf7ef;
+      --card: #ffffff;
+      --ink: #24313a;
+      --muted: #65717a;
+      --accent: #8b6b3f;
+      --accent-dark: #624725;
+      --line: #e4dbcc;
+      --tab: #f1e8d9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 36px auto;
+    }
+
+    .site-header {
+      padding: clamp(24px, 5vw, 52px);
+      text-align: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 8px 24px rgba(45, 35, 20, 0.05);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font: 700 0.78rem/1.4 Arial, sans-serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      max-width: 700px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .journal-shell {
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-top: 0;
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 8px 24px rgba(45, 35, 20, 0.05);
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 18px;
+      background: #f6f0e6;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tab-button {
+      appearance: none;
+      border: 1px solid #ded1bd;
+      border-radius: 999px;
+      padding: 10px 15px;
+      background: var(--tab);
+      color: var(--ink);
+      font: 600 0.94rem/1.2 Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tab-button:hover,
+    .tab-button:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .tab-button[aria-selected="true"] {
+      color: #fff;
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    .tab-content {
+      padding: clamp(18px, 3vw, 32px);
+    }
+
+    .panel[hidden] { display: none; }
+
+    .intro {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 14px 4px 24px;
+      text-align: center;
+    }
+
+    .intro h2,
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 500;
+    }
+
+    .intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .document-heading {
+      margin-bottom: 18px;
+    }
+
+    .document-heading p {
+      margin: 0;
+      color: var(--muted);
+      font: 0.92rem/1.5 Arial, sans-serif;
+    }
+
+    .pdf-frame {
+      display: block;
+      width: 100%;
+      height: min(78vh, 900px);
+      min-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f7f7f7;
+    }
+
+    .footer {
+      padding: 20px 12px 0;
+      color: var(--muted);
+      text-align: center;
+      font: 0.85rem/1.5 Arial, sans-serif;
+    }
+
+    @media (max-width: 600px) {
+      .page { width: min(100% - 16px, 1200px); margin: 8px auto; }
+      .site-header { border-radius: 14px 14px 0 0; }
+      .journal-shell { border-radius: 0 0 14px 14px; }
+      .tabs { gap: 7px; padding: 12px; }
+      .tab-button { padding: 9px 12px; font-size: 0.88rem; }
+      .pdf-frame { height: 70vh; min-height: 420px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <p class="eyebrow">Travel • Journals • Photography</p>
+      <h1>The Jan Journals</h1>
+      <p class="subtitle">A collection of journeys, memories, and photographs from Jan Miller’s travels around the world.</p>
+    </header>
+
+    <section class="journal-shell" aria-label="Jan Journals collection">
+      <nav class="tabs" role="tablist" aria-label="Choose a journal">
+        <button class="tab-button" id="tab-Other" role="tab" aria-controls="panel-Other" aria-selected="true" tabindex="0" data-tab="Other">Welcome</button>
+        <button class="tab-button" id="tab-Australia" role="tab" aria-controls="panel-Australia" aria-selected="false" tabindex="-1" data-tab="Australia">Australia</button>
+        <button class="tab-button" id="tab-Brazil" role="tab" aria-controls="panel-Brazil" aria-selected="false" tabindex="-1" data-tab="Brazil">Brazil</button>
+        <button class="tab-button" id="tab-China" role="tab" aria-controls="panel-China" aria-selected="false" tabindex="-1" data-tab="China">China</button>
+        <button class="tab-button" id="tab-India" role="tab" aria-controls="panel-India" aria-selected="false" tabindex="-1" data-tab="India">India</button>
+        <button class="tab-button" id="tab-Korea" role="tab" aria-controls="panel-Korea" aria-selected="false" tabindex="-1" data-tab="Korea">Korea</button>
+        <button class="tab-button" id="tab-Mexico" role="tab" aria-controls="panel-Mexico" aria-selected="false" tabindex="-1" data-tab="Mexico">Mexico</button>
+        <button class="tab-button" id="tab-Peru" role="tab" aria-controls="panel-Peru" aria-selected="false" tabindex="-1" data-tab="Peru">Peru</button>
+        <button class="tab-button" id="tab-Poland" role="tab" aria-controls="panel-Poland" aria-selected="false" tabindex="-1" data-tab="Poland">Poland</button>
+        <button class="tab-button" id="tab-RSA" role="tab" aria-controls="panel-RSA" aria-selected="false" tabindex="-1" data-tab="RSA">South Africa (RSA)</button>
+        <button class="tab-button" id="tab-Alphabetical" role="tab" aria-controls="panel-Alphabetical" aria-selected="false" tabindex="-1" data-tab="Alphabetical">Alphabetical Index</button>
+        <button class="tab-button" id="tab-Chronological" role="tab" aria-controls="panel-Chronological" aria-selected="false" tabindex="-1" data-tab="Chronological">Chronological Index</button>
+      </nav>
+
+      <div class="tab-content">
+        <section class="panel" id="panel-Other" role="tabpanel" aria-labelledby="tab-Other">
+          <div class="intro">
+            <h2>Welcome to The Jan Journals</h2>
+            <p>The Jan Journals bring together journaling and photography from Jan Miller’s travels over the years. Choose a location to explore a journal, or browse the indexes for a breakdown of travel by location and name. Enjoy exploring!</p>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-Australia" role="tabpanel" aria-labelledby="tab-Australia" hidden>
+          <div class="document-heading"><h2>Australia</h2><p>August–September 2010 · Adelaide and Brisbane</p></div>
+          <embed class="pdf-frame" src="Australia Journal_2010_Aug-Sept_IMPC_Adelaide-Brisbane.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Brazil" role="tabpanel" aria-labelledby="tab-Brazil" hidden>
+          <div class="document-heading"><h2>Brazil</h2><p>November 2007 · South Hemisphere Mining Technology · Ouro Preto</p></div>
+          <embed class="pdf-frame" src="Brazil Journal_2007_Nov_S Hem Min Tech_Ouro Preto.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-China" role="tabpanel" aria-labelledby="tab-China" hidden>
+          <div class="document-heading"><h2>China</h2><p>Travel journals from 2007–2019</p></div>
+          <embed class="pdf-frame" src="China Journal 2007-2019.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-India" role="tabpanel" aria-labelledby="tab-India" hidden>
+          <div class="document-heading"><h2>India</h2></div>
+          <embed class="pdf-frame" src="India.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Korea" role="tabpanel" aria-labelledby="tab-Korea" hidden>
+          <div class="document-heading"><h2>Korea</h2><p>June–July 2012 · Seoul</p></div>
+          <embed class="pdf-frame" src="Korea Journal_2012_June-July_KIGAM_Seoul.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Mexico" role="tabpanel" aria-labelledby="tab-Mexico" hidden>
+          <div class="document-heading"><h2>Mexico</h2><p>November 2011 · ICMM · Saltillo</p></div>
+          <embed class="pdf-frame" src="Mexico Journal_2011_Nov_ICMM_Saltillo.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Peru" role="tabpanel" aria-labelledby="tab-Peru" hidden>
+          <div class="document-heading"><h2>Peru</h2><p>October 2012 · First International Metallurgy Conference · Lima, Cusco, and Machu Picchu</p></div>
+          <embed class="pdf-frame" src="Peru Journal_2012_Oct_1st Intl Met Conf_Lima,Cusco,Machu Picchu.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Poland" role="tabpanel" aria-labelledby="tab-Poland" hidden>
+          <div class="document-heading"><h2>Poland</h2></div>
+          <embed class="pdf-frame" src="Poland.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-RSA" role="tabpanel" aria-labelledby="tab-RSA" hidden>
+          <div class="document-heading"><h2>South Africa (RSA)</h2></div>
+          <embed class="pdf-frame" src="RSA.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Alphabetical" role="tabpanel" aria-labelledby="tab-Alphabetical" hidden>
+          <div class="document-heading"><h2>Alphabetical Index</h2><p>Browse the journals alphabetically.</p></div>
+          <embed class="pdf-frame" src="Alphabetical.pdf" type="application/pdf">
+        </section>
+
+        <section class="panel" id="panel-Chronological" role="tabpanel" aria-labelledby="tab-Chronological" hidden>
+          <div class="document-heading"><h2>Chronological Index</h2><p>Browse the journals by date.</p></div>
+          <embed class="pdf-frame" src="Chronological.pdf" type="application/pdf">
+        </section>
+      </div>
+    </section>
+    <p class="footer">The Jan Journals · A personal archive of travel and memories</p>
+  </main>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+    function activateTab(tab, moveFocus = false) {
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        panel.hidden = panel.id !== tab.getAttribute('aria-controls');
+      });
+
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = index;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+
+        event.preventDefault();
+        activateTab(tabs[nextIndex], true);
+      });
+    });
+  </script>
+</body>
+</html>
